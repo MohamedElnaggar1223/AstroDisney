@@ -10,7 +10,5 @@ export default defineConfig({
     applyBaseStyles: true
   })],
   output: 'server',
-  adapter: vercel({
-    includeFiles: ['./.vercel/output/functions/**/*']
-  })
+  adapter: vercel()
 });
