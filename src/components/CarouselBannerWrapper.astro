@@ -1,0 +1,15 @@
+---
+import { getDiscoverMovies } from "@/lib/getMovies";
+import CarouselsBanner from "./react/CarouselsBanner";
+
+type Props = {
+    id?: string,
+    keywords?: string
+}
+
+const { id, keywords }: Props = Astro.props
+
+const movies = await getDiscoverMovies(id, keywords)
+---
+
+<CarouselsBanner client:load movies={movies} />

@@ -1,0 +1,27 @@
+---
+import { Image } from "astro:assets";
+import { ModeToggle } from "./react/ModeToggle";
+import GenreDropdown from "./GenreDropdown.astro";
+import SearchInput from "./SearchInput.astro";
+---
+<header transition:persist draggable="false" class="fixed z-[90] flex justify-between items-center p-5 w-full bg-gradient-to-t from-gray-200/0 via-gray-900/25 to-gray-900">
+    <a class="mr-10" href="/">
+        <Image
+            src="https://links.papareact.com/a943ae" 
+            alt="Disney+ logo"
+            width={120} 
+            height={100} 
+            class='z-[999] cursor-pointer dark:invert'
+        />
+    </a>
+    <div class="flex gap-x-2">
+        {/* Genre Dropdown */}
+        <GenreDropdown />
+
+        {/* Search Input */}
+        <SearchInput />
+
+        {/* Mode Toggler */}
+        <ModeToggle client:load />
+    </div>
+</header>

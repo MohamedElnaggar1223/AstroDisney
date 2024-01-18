@@ -1,0 +1,39 @@
+---
+import BasicLayout from '../../layouts/BasicLayout.astro'
+import { getUpcomingMovies, getTopRatedMovies, getPopularMovies } from '../../lib/getMovies'
+import { getImagePath } from '../../lib/getImagePath'
+import { Image } from 'astro:assets'
+
+export const prerender = false;
+
+const { id } = Astro.params
+
+const upcomingMovies = await getUpcomingMovies()
+const topRatedMovies = await getTopRatedMovies()
+const popularMovies = await getPopularMovies()
+
+const allMovies = [...upcomingMovies, ...topRatedMovies, ...popularMovies]
+
+const movie = allMovies.find(movie => movie.id.toString() === id)
+
+---
+
+<BasicLayout>
+    <div class="z-[9999999] h-full w-full flex justify-center items-center flex-row pt-80">
+        <Image
+            src={getImagePath(movie?.backdrop_path || movie?.poster_path)}
+            alt={movie?.title ?? 'movie'} 
+            width={1280}
+            height={720}
+            class='w-fit lg:min-w-[600px] h-full object-cover object-center shadow-md shadow-gray-900 drop-shadow-xl rounded-sm'
+            transition:name={`movie-${id}`}
+        />
+        <div class='max-w-3xl'>
+            <p class='font-bold text-5xl'>
+                {movie?.title}
+            </p>
+            <hr class='mb-3' />
+            <p>{movie?.overview}</p>
+        </div>
+    </div>
+</BasicLayout>

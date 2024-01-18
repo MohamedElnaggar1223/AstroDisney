@@ -1,0 +1,25 @@
+---
+import type { Genre } from "@/typings";
+import GenreDropDownMenu from "./react/GenreDropDownMenu";
+
+const url = 'https://api.themoviedb.org/3/genre/movie/list?language=en';
+
+const options = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4MThlNzkyZDk0YThlNjU3MzQxZDc0YzQ3OWNkNThkYyIsInN1YiI6IjY1YTc4ZDM3YWE3ODk4MDEyNTYyNmQ3OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.0dJAVLtgZUISUs9-AyuwO3D2EPTTbgFoSS2bEbcxRrk'
+  },
+}
+
+const response = await fetch(url, options)
+
+type Genres = {
+    genres: Genre[]
+}
+
+const genres = (await response.json()) as Genres
+
+---
+
+<GenreDropDownMenu genres={genres} client:load />

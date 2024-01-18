@@ -1,16 +1,19 @@
 ---
+import CarouselBannerWrapper from '@/components/CarouselBannerWrapper.astro'
+import MoviesCarousel from '@/components/MoviesCarousel.astro'
+import BasicLayout from '@/layouts/BasicLayout.astro'
+import { getUpcomingMovies, getTopRatedMovies } from '@/lib/getMovies'
+import '@/styles/global.css'
 
+const upcomingMovies = await getUpcomingMovies()
+const topRatedMovies = await getTopRatedMovies()
 ---
+<BasicLayout pageTitle="Disney+ Clone">
+	<CarouselBannerWrapper />
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+    <div class="flex flex-col gap-y-2">
+        <MoviesCarousel movies={upcomingMovies} title="Upcoming" />
+        <MoviesCarousel movies={topRatedMovies} title="Top Rated" />
+        <!-- <MoviesCarousel movies={popularMovies} title="Popular" /> -->
+    </div>
+</BasicLayout>
